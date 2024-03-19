@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="row justify-content-center">
+        <form action="/save" method="post" enctype="multipart/form-data">
+            <h3 class="font-weight-bold">Thêm xe mới</h1>
+            <input type="text" class="mb-3" name="maXe" id="maXe" placeholder="Nhập mã xe">
+            <br>
+            <input type="text" class="mb-3" name="tenXe" id="tenXe" placeholder="Nhập tên xe">
+            <br>
+            <input type="text" class="mb-3" name="dongXe" id="dongXe" placeholder="Nhập dòng xe">
+            <br>
+            <input type="text" class="mb-3" name="loaiXe" id="loaiXe" placeholder="Nhập loại xe">
+            <br>
+            <input type="file" class="mb-3" name="hinhXe" id="hinhXe" accept="image/*">
+            <br>
+            <input type="submit" value="Thêm">
+        </form>
+    </div>
+    <h1 class="text-center font-weight-bold">Danh sách dòng xe</h1>
+    <table class="table table-bordered">
+        <tr>
+            <th>Mã xe</th>
+            <th>Tên xe</th>
+            <th>Dòng xe</th>
+            <th>Loại xe</th>
+            <th>Hình xe</th>
+            <th>Hành động</th>
+        </tr>
+
+        <% for( let i = 0; i < data.length; i++ ) { %>
+            <tr>
+                <td><%= data[i].maXe%></td>
+                <td><%= data[i].tenXe %></td>
+                <td><%= data[i].dongXe %></td>
+                <td><%= data[i].loaiXe %></td>
+                <td><img src="<%= data[i].hinhXe %>" alt="avt_<%= data[i].maXe %>" width="50" height="50"></td>
+                <td>
+                    <form action="/delete/<%- data[i].maXe %>" method="post">
+                        <input type="submit" id="btnXoa" class="btn btn-danger mb-2" value="Xóa">
+                    </form>
+                    <a href="/update/<%- data[i].maXe %>" class="btn btn-primary">Cập nhật</a>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+    
+</body>
+</html>
