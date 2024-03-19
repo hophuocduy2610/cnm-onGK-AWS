@@ -16,7 +16,12 @@
             <br>
             <input type="text" class="mb-3" name="dongXe" id="dongXe" placeholder="Nhập dòng xe">
             <br>
-            <input type="text" class="mb-3" name="loaiXe" id="loaiXe" placeholder="Nhập loại xe">
+            <select class="mb-3" name="loaiXe" id="loaiXe">
+                <option value="Xe 4 bánh">Xe 4 bánh</option>
+                <option value="Xe điện">Xe điện</option>
+                <option value="Xe van">Xe van</option>
+            </select>            <br>
+            <input type="text" class="mb-3" name="gia" id="gia" placeholder="Nhập giá xe">
             <br>
             <input type="file" class="mb-3" name="hinhXe" id="hinhXe" accept="image/*">
             <br>
@@ -30,6 +35,7 @@
             <th>Tên xe</th>
             <th>Dòng xe</th>
             <th>Loại xe</th>
+            <th>Giá xe</th>
             <th>Hình xe</th>
             <th>Hành động</th>
         </tr>
@@ -40,6 +46,7 @@
                 <td><%= data[i].tenXe %></td>
                 <td><%= data[i].dongXe %></td>
                 <td><%= data[i].loaiXe %></td>
+                <td><%= numberWithCommas(data[i].gia) %></td>
                 <td><img src="<%= data[i].hinhXe %>" alt="avt_<%= data[i].maXe %>" width="50" height="50"></td>
                 <td>
                     <form action="/delete/<%- data[i].maXe %>" method="post">

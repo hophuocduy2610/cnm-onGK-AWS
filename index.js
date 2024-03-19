@@ -61,7 +61,12 @@ app.get('/' , async (req , res)=>{
     const params = {TableName: tableName};
     const data = await dynamodb.scan(params).promise();
     console.log("data = ", data.Items);
-    return res.render("index.ejs", {data: data.Items});
+    return res.render("index.ejs", {data: data.Items,  numberWithCommas : function (x) {
+        if(!x) {
+            return;
+        }
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }});
    } catch (error) {
     console.error("Error retrieving data from DynamoDB: ", error);
     return res.status(500).send("Internal Server Error");
@@ -74,6 +79,7 @@ app.post("/save", upload.single("hinhXe"), (req, res) => {
         const tenXe = req.body.tenXe;
         const dongXe = req.body.dongXe;
         const loaiXe = req.body.loaiXe;
+        const gia = req.body.gia;
         const hinhXe = req.file.originalname.split(".");
         const fileType = hinhXe[hinhXe.length - 1];
         const filePath = `${maXe}_${Date.now().toString()}.${fileType}`;
@@ -98,6 +104,7 @@ app.post("/save", upload.single("hinhXe"), (req, res) => {
                         tenXe: tenXe,
                         dongXe: dongXe,
                         loaiXe: loaiXe,
+                        gia: gia,
                         hinhXe: hinhXeURL
                     }
                 };
@@ -163,16 +170,18 @@ app.post('/update', upload.single("hinhXe"), async (req , res)=>{
     const tenXe = req.body.tenXe;
     const dongXe = req.body.dongXe;
     const loaiXe = req.body.loaiXe;
+    const gia = req.body.gia;
     
     if(!req.file) {
         const paramsDynamoDb = {
             TableName: tableName,
             Key: {maXe: maXe},
-            UpdateExpression: "set tenXe = :tx, dongXe = :dx, loaiXe = :lx",
+            UpdateExpression: "set tenXe = :tx, dongXe = :dx, loaiXe = :lx, gia = :g",
             ExpressionAttributeValues: {
                 ":tx": tenXe,
                 ":dx": dongXe,
                 ":lx": loaiXe,
+                ":g": gia
             }
         };
 

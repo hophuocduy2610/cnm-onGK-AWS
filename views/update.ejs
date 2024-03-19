@@ -16,7 +16,13 @@
             <br>
             <input type="text" class="mb-2" name="dongXe" id="dongXe" placeholder="Nhập dòng xe" value="<%= data.dongXe %>">
             <br>
-            <input type="text" class="mb-2" name="loaiXe" id="loaiXe" placeholder="Nhập loại xe" value="<%= data.loaiXe %>">
+            <select class="mb-2" name="loaiXe" id="loaiXe">
+                <option value="Xe 4 bánh">Xe 4 bánh</option>
+                <option value="Xe điện">Xe điện</option>
+                <option value="Xe van">Xe van</option>
+            </select>
+            <br>
+            <input type="text" class="mb-2" name="gia" id="gia" placeholder="Nhập giá xe" value="<%= data.gia %>">
             <br>
             <input type="file" class="mb-2" name="hinhXe" id="hinhXe" accept="image/*">
             <br>
